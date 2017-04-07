@@ -21,6 +21,12 @@ export default new Vuex.Store({
 	getters: {
 		getList: state => {
 			return state.list;
+		},
+		getCapitalList: (state, getters) => {
+			return getters.getList.filter((item) => item[0] === item[0].toUpperCase());
+		},
+		getLowerList: (state, getters) => {
+			return getters.getList.filter((item) => item[0] === item[0].toLowerCase());
 		}
 	}
 });

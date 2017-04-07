@@ -1,12 +1,13 @@
 <template>
     <div>
-        <input v-model="inputValue" type="text"/>
-        <button @click="addItem">add</button>
-        <list :items="items"></list>
+        <label for="inputBox">Text to add: </label>
+        <input name="InputBox" id="inputBox" type="text"/>
+        <button @click="addItem"> Add </button>
+        <list :items="this.$store.getters.getList"></list>
+        <hr/>
+        <list :items="this.$store.getters.getCapitalList"></list>
         <hr />
-        <list :items="items | onlyCapital"></list>
-        <hr />
-        <list :items="items | onlyLower"></list>
+        <list :items="this.$store.getters.getLowerList"></list>
     </div>
 </template>
 <script>
@@ -20,24 +21,13 @@
             	inputValue : ""
             }
         },
-        computed : {
-    		items() { return this.$store.getters.getList}
-        },
         methods : {
             addItem () {
-           	this.$store.commit(ADD_TO_LIST, this.inputValue)
+           	this.$store.commit(ADD_TO_LIST, document.getElementById('inputBox').value)
             }
         },
         components:{
     	    List
-        },
-	    filters: {
-		    onlyCapital: function (value) {
-                return value.filter((item) => item[0] === item[0].toUpperCase())
-		    },
-            onlyLower: function (value) {
-                return value.filter(item => item[0] === item[0].toLowerCase())
-            }
-	    }
+        }
     }
 </script>
